@@ -122,78 +122,19 @@ const filmy = [
 const filmyID = window.location.hash.slice(1);
 const film = filmy.find(item => item.id === filmyID);
 
-const detailElm = document.querySelector("#detail-filmu");
-detailElm.innerHTML = `
-    <div class="row g-0">
-        <div class="col-md-5">
-            <img
-                src="${film.plakat.url}"
-                alt="plakát"
-                class="img-fluid rounded-start"
-                width="${film.plakat.sirka}"
-                height="${film.plakat.vyska}"
-            />
-        </div>
-        <div class="col-md-7">
-            <div class="card-body">
-                <h5 class="card-title">${film.nazev}</h5>
-                <p class="card-text">${film.popis}</p>
-                <p class="card-text">
-                    <small class="text-muted" id="premiera">
-                        Premiéra <strong>${film.premiera}</strong>
-                    </small>
-                </p>
-                <div id="rating-section">
-                    <h6>Hodnocení</h6>
-                    <div class="stars">
-                        <button class="far fa-star button-star" title="Nic moc">1</button>
-                        <button class="far fa-star button-star" title="Ucházející">2</button>
-                        <button class="far fa-star button-star" title="Dobrý">3</button>
-                        <button class="far fa-star button-star" title="Skvělý">4</button>
-                        <button class="far fa-star button-star" title="Úžasný">5</button>
-                    </div>
-                </div>
-                <div id="note-section">
-                    <h6 class="mt-4">Poznámka</h6>
-							<form id="note-form">
-								<div class="row">
-									<div class="col-md-6 col-lg-7 col-xl-8 mb-2">
-										<div class="form-outline">
-											<textarea
-												class="form-control"
-												id="message-input"
-												rows="4"
-											></textarea>
-											<label class="form-label" for="message-input"
-												>Text poznámky</label
-											>
-										</div>
-									</div>
-									<div class="col-md-6 col-lg-5 col-xl-4">
-										<div class="form-check d-flex justify-content-center mb-2">
-											<input
-												class="form-check-input me-2 mb-2"
-												type="checkbox"
-												value=""
-												id="terms-checkbox"
-											/>
-											<label class="form-check-label" for="terms-checkbox">
-												Souhlasím se všeobecnými podmínky užívání.
-											</label>
-										</div>
-										<button type="submit" class="btn btn-primary btn-block">
-											Uložit
-										</button>
-									</div>
-								</div>
-							</form>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-`;
+if (film) {
+    const imgElm = document.querySelector("#detail-filmu img");
+    imgElm.src = film.plakat.url;
+    imgElm.alt = film.nazev;
+    imgElm.width = film.plakat.sirka;
+    imgElm.height = film.plakat.vyska;
 
+
+    document.querySelector("#detail-filmu .card-title").textContent = film.nazev;
+
+
+    document.querySelector("#detail-filmu .card-text:not(#premiera)").textContent = film.popis;
+}
 
 const premieraElm = document.querySelector("#premiera");
 const formattedDate = dayjs(film.premiera).format('D. M. YYYY');
@@ -202,7 +143,7 @@ premieraElm.innerHTML = `Premiéra <strong>${formattedDate}</strong>`;
 
 
 
-/*8*/
+//8
 const formElm = document.querySelector("#note-form");
 
 formElm.addEventListener("submit", (event) => {
@@ -227,6 +168,28 @@ formElm.addEventListener("submit", (event) => {
     }
 
     formElm.innerHTML = `<p class="card-text">${messageInput.value.trim()}</p>`;
+});
+
+
+// zvýraznění hvězdiček
+const hodnoceni = (count) => {
+    const stars = document.querySelectorAll(".fa-star");
+    stars.forEach((star, index) => {
+        if (index < count) {
+            star.classList.remove("far");
+            star.classList.add("fas");
+        } else {
+            star.classList.remove("fas");
+            star.classList.add("far");
+        }
+    });
+};
+
+document.querySelectorAll(".fa-star").forEach((star) => {
+    star.addEventListener("click", () => {
+        const starIndex = parseInt(star.textContent.trim(), 10);
+        hodnoceni(starIndex);
+    });
 });
 
 

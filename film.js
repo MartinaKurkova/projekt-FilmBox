@@ -103,4 +103,130 @@ const filmy = [
 			'Na zámek v podhůří Krkonoš přijíždí jeho nový majitel Štěpán se svojí snoubenkou, krásnou komtesou Blankou, a mladším bratrem Adamem. Cestou kočár nešťastně srazí kolemjdoucí dívku, Adam jí pomůže a ona se do něj zamiluje. Na zámku Adam objeví starou vlašskou knihu, která by měla obsahovat cestu k pokladům. Tajemné značky vlašské knihy však nedokáže vyluštit ani národopisec Jiráček, který v kraji sbírá pověsti a nevychází z údivu nad tím, že zdejší lidé stále věří v Krakonoše. Na zámku se objeví záhadný cizinec a nabídne Štěpánovi, že jej k pokladu za určitých podmínek dovede. Výprava do hor může začít. Naplní se Liduščina láska k Adamovi? Jakou záhadu skrývá starý obraz na zámku Hůrka a co strašlivého se v horách kdysi odehrálo? A kdo je vlastně Krakonoš a jaké je jeho největší tajemství? (csfd.cz, Česká televize)',
 		premiera: '2022-12-24',
 	},
+	{
+		id: 'spalovac-mrtvol',
+		nazev: 'Spalovač mrtvol',
+		plakat: {
+			url: 'https://image.tmdb.org/t/p/original/kwl7MNooVsyXzKARZvBBd1tKFJW.jpg',
+			sirka: 657,
+			vyska: 950,
+		},
+		ochutnavka: 'Kultovní fil Juraja Herze.',
+		popis:
+			'Film Spalovač mrtvol natočil režisér Juraj Herz podle stejnojmenné novely Ladislava Fukse. Jeho hrdina - zaměstnanec krematoria, je člověk nenormální, zatížený svým povoláním, psychopat a maniak, posedlý představou člověka jako mrtvoly a její přeměny v prach a popel. Člověk takto duševně narušený se dá pak snadno svést zrůdnou fašistickou ideologií k těm nejstrašnějším činům: zradě národa, ke kterému se dosud hlásil, udavačství, vraždám a spolupráci na masovém vyhlazování lidí. (Bontonfilm)',
+		premiera: '1968-08-12',
+	}
 ]
+
+
+const filmyID = window.location.hash.slice(1);
+const film = filmy.find(item => item.id === filmyID);
+
+const detailElm = document.querySelector("#detail-filmu");
+detailElm.innerHTML = `
+    <div class="row g-0">
+        <div class="col-md-5">
+            <img
+                src="${film.plakat.url}"
+                alt="plakát"
+                class="img-fluid rounded-start"
+                width="${film.plakat.sirka}"
+                height="${film.plakat.vyska}"
+            />
+        </div>
+        <div class="col-md-7">
+            <div class="card-body">
+                <h5 class="card-title">${film.nazev}</h5>
+                <p class="card-text">${film.popis}</p>
+                <p class="card-text">
+                    <small class="text-muted" id="premiera">
+                        Premiéra <strong>${film.premiera}</strong>
+                    </small>
+                </p>
+                <div id="rating-section">
+                    <h6>Hodnocení</h6>
+                    <div class="stars">
+                        <button class="far fa-star button-star" title="Nic moc">1</button>
+                        <button class="far fa-star button-star" title="Ucházející">2</button>
+                        <button class="far fa-star button-star" title="Dobrý">3</button>
+                        <button class="far fa-star button-star" title="Skvělý">4</button>
+                        <button class="far fa-star button-star" title="Úžasný">5</button>
+                    </div>
+                </div>
+                <div id="note-section">
+                    <h6 class="mt-4">Poznámka</h6>
+							<form id="note-form">
+								<div class="row">
+									<div class="col-md-6 col-lg-7 col-xl-8 mb-2">
+										<div class="form-outline">
+											<textarea
+												class="form-control"
+												id="message-input"
+												rows="4"
+											></textarea>
+											<label class="form-label" for="message-input"
+												>Text poznámky</label
+											>
+										</div>
+									</div>
+									<div class="col-md-6 col-lg-5 col-xl-4">
+										<div class="form-check d-flex justify-content-center mb-2">
+											<input
+												class="form-check-input me-2 mb-2"
+												type="checkbox"
+												value=""
+												id="terms-checkbox"
+											/>
+											<label class="form-check-label" for="terms-checkbox">
+												Souhlasím se všeobecnými podmínky užívání.
+											</label>
+										</div>
+										<button type="submit" class="btn btn-primary btn-block">
+											Uložit
+										</button>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+`;
+
+
+const premieraElm = document.querySelector("#premiera");
+const formattedDate = dayjs(film.premiera).format('D. M. YYYY');
+premieraElm.innerHTML = `Premiéra <strong>${formattedDate}</strong>`;
+
+
+
+
+/*8*/
+const formElm = document.querySelector("#note-form");
+
+formElm.addEventListener("submit", (event) => {
+    event.preventDefault();
+
+    const messageInput = document.querySelector("#message-input");
+    const termsCheckbox = document.querySelector("#terms-checkbox");
+
+    messageInput.classList.remove("is-invalid");
+    termsCheckbox.classList.remove("is-invalid");
+
+    if (messageInput.value.trim() === "") {
+        messageInput.classList.add("is-invalid");
+        messageInput.focus();
+        return; 
+    }
+
+    if (termsCheckbox.checked === false) {
+        termsCheckbox.classList.add("is-invalid");
+        termsCheckbox.focus();
+        return; 
+    }
+
+    formElm.innerHTML = `<p class="card-text">${messageInput.value.trim()}</p>`;
+});
+
+

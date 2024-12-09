@@ -136,7 +136,7 @@ filmy.forEach(item => {
                 <div class="card-body">
                     <h5 class="card-title">${item.nazev}</h5>
                     <p class="card-text">${item.ochutnavka}</p>
-                    <a href="film.html?id=${item.id}" class="btn btn-primary">Přehrát</a>
+                    <a href="film.html#${item.id}" class="btn btn-primary">Přehrát</a>
                 </div>
             </div>
         </div>

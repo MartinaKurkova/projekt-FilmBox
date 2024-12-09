@@ -103,4 +103,42 @@ const filmy = [
 			'Na zámek v podhůří Krkonoš přijíždí jeho nový majitel Štěpán se svojí snoubenkou, krásnou komtesou Blankou, a mladším bratrem Adamem. Cestou kočár nešťastně srazí kolemjdoucí dívku, Adam jí pomůže a ona se do něj zamiluje. Na zámku Adam objeví starou vlašskou knihu, která by měla obsahovat cestu k pokladům. Tajemné značky vlašské knihy však nedokáže vyluštit ani národopisec Jiráček, který v kraji sbírá pověsti a nevychází z údivu nad tím, že zdejší lidé stále věří v Krakonoše. Na zámku se objeví záhadný cizinec a nabídne Štěpánovi, že jej k pokladu za určitých podmínek dovede. Výprava do hor může začít. Naplní se Liduščina láska k Adamovi? Jakou záhadu skrývá starý obraz na zámku Hůrka a co strašlivého se v horách kdysi odehrálo? A kdo je vlastně Krakonoš a jaké je jeho největší tajemství? (csfd.cz, Česká televize)',
 		premiera: '2022-12-24',
 	},
+	{
+		id: 'spalovac-mrtvol',
+		nazev: 'Spalovač mrtvol',
+		plakat: {
+			url: 'https://image.tmdb.org/t/p/original/kwl7MNooVsyXzKARZvBBd1tKFJW.jpg',
+			sirka: 657,
+			vyska: 950,
+		},
+		ochutnavka: 'Kultovní fil Juraja Herze.',
+		popis:
+			'Film Spalovač mrtvol natočil režisér Juraj Herz podle stejnojmenné novely Ladislava Fukse. Jeho hrdina - zaměstnanec krematoria, je člověk nenormální, zatížený svým povoláním, psychopat a maniak, posedlý představou člověka jako mrtvoly a její přeměny v prach a popel. Člověk takto duševně narušený se dá pak snadno svést zrůdnou fašistickou ideologií k těm nejstrašnějším činům: zradě národa, ke kterému se dosud hlásil, udavačství, vraždám a spolupráci na masovém vyhlazování lidí. (Bontonfilm)',
+		premiera: '1968-08-12',
+	},
 ]
+
+
+const seznamElm = document.querySelector("#seznam-filmu"); 
+seznamElm.innerHTML = ""; 
+
+filmy.forEach(item => {
+    seznamElm.innerHTML += `
+        <div class="col" id="${item.id}">
+            <div class="card">
+                <img
+                    src="${item.plakat.url}"
+                    width="${item.plakat.sirka}"
+                    height="${item.plakat.vyska}"
+                    class="card-img-top"
+                    alt="plakát"
+                />
+                <div class="card-body">
+                    <h5 class="card-title">${item.nazev}</h5>
+                    <p class="card-text">${item.ochutnavka}</p>
+                    <a href="film.html?id=${item.id}" class="btn btn-primary">Přehrát</a>
+                </div>
+            </div>
+        </div>
+    `;
+});

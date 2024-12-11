@@ -111,7 +111,7 @@ const filmy = [
 			sirka: 657,
 			vyska: 950,
 		},
-		ochutnavka: 'Kultovní fil Juraja Herze.',
+		ochutnavka: 'Kultovní film Juraja Herze.',
 		popis:
 			'Film Spalovač mrtvol natočil režisér Juraj Herz podle stejnojmenné novely Ladislava Fukse. Jeho hrdina - zaměstnanec krematoria, je člověk nenormální, zatížený svým povoláním, psychopat a maniak, posedlý představou člověka jako mrtvoly a její přeměny v prach a popel. Člověk takto duševně narušený se dá pak snadno svést zrůdnou fašistickou ideologií k těm nejstrašnějším činům: zradě národa, ke kterému se dosud hlásil, udavačství, vraždám a spolupráci na masovém vyhlazování lidí. (Bontonfilm)',
 		premiera: '1968-08-12',
